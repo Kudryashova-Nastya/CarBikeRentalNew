@@ -19,6 +19,6 @@ from General.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', include('General.urls'))
+    path('api/', include('General.urls')),
     path('', index)
 ]
