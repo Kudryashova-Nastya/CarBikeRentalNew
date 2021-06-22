@@ -1,18 +1,22 @@
-import React, { Component } from 'react'
-import ListItem from '../ListItem'
+import React, { Component } from "react";
 
-import './style.sass'
+import "./style.scss";
 
-const FullRoster = () => (
-    <div>
-      <ul>
-        {
-          PlayerAPI.all().map(p => (
-            <li key={p.number}>
-              <Link to={`/roster/${p.id}`}>{p.name}</Link>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  )
+const FullCars = () => (
+  <div>
+    <h1>
+      Аренда авто
+    </h1>
+  </div>
+  // <div>
+  //   <ul>
+  //     {PlayerAPI.all().map((p) => (
+  //       <li key={p.number}>
+  //         <Link to={`/roster/${p.id}`}>{p.name}</Link>
+  //       </li>
+  //     ))}
+  //   </ul>
+  // </div>
+);
+
+export default FullCars;

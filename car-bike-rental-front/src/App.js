@@ -2,6 +2,9 @@ import logo from "./logo.svg";
 import "bulma/css/bulma.min.css";
 import "./App.css";
 import {Route, NavLink, Switch} from "react-router-dom";
+import Home from './components/Home/Home.js'
+import FullCars from './components/FullCars/FullCars.js'
+import Car from './components/Car/Car.js'
 
 function App() {
   return (
@@ -55,13 +58,13 @@ function App() {
       </header>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
+        {/* <Route path="/about" component={About} /> */}
         <Route exact path="/car" component={FullCars} />
         <Route path="/car/:id" component={Car} />
-        <Route exact path="/bike" component={FullBikes} />
+        {/* <Route exact path="/bike" component={FullBikes} />
         <Route path="/bike/:id" component={Bike} />
         <Route exact path="/profile" component={Login} />
-        <Route path="/profile/:id" component={Profile} />
+        <Route path="/profile/:id" component={Profile} /> */}
       </Switch>
     </div>
   );
