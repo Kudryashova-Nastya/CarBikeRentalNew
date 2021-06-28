@@ -37,9 +37,9 @@ function App() {
                 <NavLink to="/" className="navbar-link" activeClassName="navbar-link-active">Арендовать </NavLink>
 
                 <div className="navbar-dropdown">
-                  <NavLink to="/car" className="navbar-item">Автомобиль </NavLink>
+                  <NavLink to="/cars" className="navbar-item">Автомобиль </NavLink>
                   <hr className="navbar-divider" />
-                  <NavLink to="/bike" className="navbar-item">Велосипед </NavLink>
+                  <NavLink to="/bikes" className="navbar-item">Велосипед </NavLink>
                 </div>
               </div>
             </div>
@@ -56,13 +56,15 @@ function App() {
           </div>
         </nav>
       </header>
+
+      
       <Switch>
         <Route exact path="/" component={Home} />
         {/* <Route path="/about" component={About} /> */}
-        <Route exact path="/car" component={FullCars} />
-        <Route path="/car/:id" component={Car} />
-        {/* <Route exact path="/bike" component={FullBikes} />
-        <Route path="/bike/:id" component={Bike} />
+        <Route exact path="/cars" component={FullCars} />
+        <Route path="/cars/:id" component={Car} />
+        {/* <Route exact path="/bikes" component={FullBikes} />
+        <Route path="/bikes/:id" component={Bike} />
         <Route exact path="/profile" component={Login} />
         <Route path="/profile/:id" component={Profile} /> */}
       </Switch>

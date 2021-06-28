@@ -1,0 +1,20 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: flex-start;
+}
+
+.card {
+    width: 25%;
+    margin-top: 35px;
+    @media (max-width: 870px) {
+        width: 45%;
+    }
+
+    @media (max-width: 425px) {
+        width: 90%;
+        margin-top: 25px;
+    }
+}

@@ -1,6 +1,11 @@
 from django.db import models
 
-# Create your models here.
+TYPE_DELIVERY_CHOICES = [
+    ('ат', 'Авто туда'),
+    ('ао', 'Авто обратно'),
+    ('вт', 'Вело туда'),
+    ('во', 'Вело обратно')
+]
 
 class Location(models.Model):
     city = models.CharField(max_length=100)
@@ -30,12 +35,12 @@ class Deliveryman(models.Model):
         return self.name
 
 class Delivery(models.Model):
-    type_rent = models.CharField(max_length=8)
+    type_delivery = models.CharField(max_length=12)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     deliveryman_id = models.ForeignKey(Deliveryman, on_delete=models.CASCADE)
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     delivery_location = models.CharField(max_length=100)
-    time = models.DateTimeField()
-    price = models.PositiveSmallIntegerField()
+    time = models.CharField(max_length=16)
+    price = models.PositiveSmallIntegerField(blank=True)
     def __str__(self):
         return str(self.id)

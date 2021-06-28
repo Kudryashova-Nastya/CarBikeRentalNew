@@ -27,8 +27,8 @@ class DeliverymanAdmin(ImportExportActionModelAdmin):
 
 
 class DeliveryAdmin(ImportExportActionModelAdmin):
-    list_display = ('id', 'type_rent', 'deliveryman_id', 'user_id', 'location_id', 'delivery_location', 'time', 'price')
-    list_filter = ('type_rent', 'time', 'price')
+    list_display = ('id', 'type_delivery', 'deliveryman_id', 'user_id', 'location_id', 'delivery_location', 'time', 'price')
+    list_filter = ('type_delivery', 'time', 'price')
     search_fields = ('id',)
 
 
