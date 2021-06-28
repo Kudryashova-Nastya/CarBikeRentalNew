@@ -195,19 +195,6 @@ function Car({ match }) {
       <h1 className="title-3">Период аренды</h1>
       <form onSubmit={handleSubmit}>
         <div className="field has-addons">
-          <h1>
-            значения дата время начало {state.start + " " + state2.startTime}
-          </h1>
-          <br />
-          <h1>значения дата время конец {state3.end + " " + state4.endTime}</h1>
-          <br />
-          <h1>регион {state5.region}</h1>
-          <br />
-          <h1>локация {state6.location}</h1>
-          <br />
-          <h1>коммент {state7.comment}</h1>
-          <br />
-
           <p className="control">
             <span className="select">
               <select
