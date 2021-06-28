@@ -7,7 +7,8 @@ from General.models import Delivery
 # Create your models here.
 
 STATUS_RENT_CHOICES = [
-    ('за', 'Заказано'),
+    ('на', 'На рассмотрении'),
+    ('за', 'Оформлено'),
     ('оп', 'Оплачено'),
     ('во', 'Возврат средств'),
     ('дз', 'На доставке заказчику'),
@@ -57,7 +58,7 @@ class Car(models.Model):
 class Car_rent(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     car_id = models.ForeignKey(Car, on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=STATUS_RENT_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_RENT_CHOICES, default="на")
     start = models.DateTimeField()
     end = models.DateTimeField()
     region =  models.CharField(max_length=40)

@@ -41,6 +41,6 @@ class Delivery(models.Model):
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     delivery_location = models.CharField(max_length=100)
     time = models.CharField(max_length=16)
-    price = models.PositiveSmallIntegerField(blank=True)
+    price = models.PositiveSmallIntegerField(blank=True, default=500)
     def __str__(self):
         return str(self.id)

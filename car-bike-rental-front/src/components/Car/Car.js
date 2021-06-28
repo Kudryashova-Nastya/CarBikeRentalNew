@@ -42,21 +42,31 @@ function Car({ match }) {
 
   const [state, setState] = useState({
     start: "",
+  });
+
+  const [state2, setState2] = useState({
+    startTime: "9:00",
+  });
+
+  const [state3, setState3] = useState({
     end: "",
-    startTime: "",
-    endTime: "",
+  });
+
+  const [state4, setState4] = useState({
+    endTime: "9:00",
+  });
+
+  const [state5, setState5] = useState({
     region: "",
+  });
+
+  const [state6, setState6] = useState({
     location: "",
   });
 
-  // let state = {
-  //   start: "",
-  //   end: "",
-  //   startTime: "",
-  //   endTime: "",
-  //   region: "",
-  //   location: ""
-  // };
+  const [state7, setState7] = useState({
+    comment: "",
+  });
 
   const onChangeStart = (e) => {
     setState({
@@ -65,37 +75,37 @@ function Car({ match }) {
   };
 
   const onChangeEnd = (e) => {
-    setState({
+    setState3({
       end: e.target.value,
     });
   };
 
   const onChangeStartTime = (e) => {
-    setState({
+    setState2({
       startTime: e.target.value,
     });
   };
 
   const onChangeEndTime = (e) => {
-    setState({
+    setState4({
       endTime: e.target.value,
     });
   };
 
   const onChangeRegion = (e) => {
-    setState({
+    setState5({
       region: e.target.value,
     });
   };
 
   const onChangeLocation = (e) => {
-    setState({
+    setState6({
       location: e.target.value,
     });
   };
 
   const onChangeComment = (e) => {
-    setState({
+    setState7({
       comment: e.target.value,
     });
   };
@@ -117,42 +127,38 @@ function Car({ match }) {
     // };
 
     axios
-      .post("http://127.0.0.1:8000/api/deliverys", {
+      .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ат",
         user_id: 1,
         deliveryman_id: 1,
         location_id: car.location_id,
-        delivery_location: state.location,
-        time: state.start + " " + state.startTime,
+        delivery_location: state6.location,
+        time: state.start + " " + state2.startTime,
       })
-      .then((res) => console.log(res))
-      .then(console.log(state.start))
-      .catch(error => {
-        setError()
-        console.log(error)
+      .then((res) => {
+        console.log(res);
+        alert("Заявка на аренду успешно подана. Ожидайте изменения статуса в личном кабинете. Вам придёт оповещение");
+      })
+      .catch((error) => {
+        setError();
+        console.log(error);
         if (error.response) {
-            console.log("--------------------------------------------------")
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+          console.log("--------------------------------------------------");
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
         } else if (error.request) {
-            console.log("*************************")
-
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            console.log(error.request);
+          console.log("*************************");
+          console.log(error.request);
         } else {
-            console.log("++++++++++++++++++++++++")
-            // Something happened in setting up the request that triggered an Error
-            console.log('Error', error.message);
+          console.log("++++++++++++++++++++++++");
+          console.log("Error", error.message);
         }
         console.log(error.config);
-    });
-  };
 
+        alert("Ошибка " + error.response.status);
+      });
+  };
 
   return (
     <div>
@@ -189,18 +195,24 @@ function Car({ match }) {
       <h1 className="title-3">Период аренды</h1>
       <form onSubmit={handleSubmit}>
         <div className="field has-addons">
-
-          <h1>значения дата время начало {state.start + " " + state.startTime}</h1><br/>
-          <h1>значения дата время конец {state.end + " " + state.endTime}</h1><br/>
-          <h1>регион {state.region}</h1><br/>
-          <h1>локация {state.location}</h1><br/>
-          <h1>коммент {state.comment}</h1><br/>
+          <h1>
+            значения дата время начало {state.start + " " + state2.startTime}
+          </h1>
+          <br />
+          <h1>значения дата время конец {state3.end + " " + state4.endTime}</h1>
+          <br />
+          <h1>регион {state5.region}</h1>
+          <br />
+          <h1>локация {state6.location}</h1>
+          <br />
+          <h1>коммент {state7.comment}</h1>
+          <br />
 
           <p className="control">
             <span className="select">
               <select
                 className="selected"
-                value={state.startTime}
+                value={state2.startTime}
                 onChange={onChangeStartTime}
               >
                 <option value="09:00">09:00</option>
@@ -238,7 +250,7 @@ function Car({ match }) {
             <span className="select">
               <select
                 className="selected"
-                value={state.endTime}
+                value={state4.endTime}
                 onChange={onChangeEndTime}
               >
                 <option value="09:00">09:00</option>
@@ -264,7 +276,7 @@ function Car({ match }) {
               className="input"
               type="date"
               min={new Date().toISOString().slice(0, 10)}
-              value={state.end}
+              value={state3.end}
               onChange={onChangeEnd}
               required
             />
@@ -279,7 +291,7 @@ function Car({ match }) {
               type="text"
               placeholder="Место, куда вы планируете поехать"
               maxlength="40"
-              value={state.region}
+              value={state5.region}
               onChange={onChangeRegion}
               required
             />
@@ -294,7 +306,7 @@ function Car({ match }) {
               type="text"
               placeholder="Место, где вы заберёте и куда вернёте автомобиль"
               maxlength="100"
-              value={state.location}
+              value={state6.location}
               onChange={onChangeLocation}
               required
             />
@@ -308,7 +320,7 @@ function Car({ match }) {
               className="textarea"
               placeholder="Ваш комментарий"
               maxlength="200"
-              value={state.comment}
+              value={state7.comment}
               onChange={onChangeComment}
             ></textarea>
           </div>
