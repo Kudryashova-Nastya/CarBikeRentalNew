@@ -68,6 +68,10 @@ function Car({ match }) {
     comment: "",
   });
 
+  const [delivery_id, setDelivery] = useState({
+    id: 0,
+  });
+
   const onChangeStart = (e) => {
     setState({
       start: e.target.value,
@@ -129,15 +133,37 @@ function Car({ match }) {
     axios
       .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ат",
-        user_id: 1,
-        deliveryman_id: 1,
+        user_id: 1, 
+        deliveryman_id: 1,// временно
         location_id: car.location_id,
         delivery_location: state6.location,
         time: state.start + " " + state2.startTime,
       })
       .then((res) => {
         console.log(res);
-        alert("Заявка на аренду успешно подана. Ожидайте изменения статуса в личном кабинете. Вам придёт оповещение");
+        console.log(res.data.id);
+        console.log(delivery_id.id);
+        setDelivery({
+          id: res.data.id,
+        });
+        console.log(delivery_id.id);
+        return axios.post("http://127.0.0.1:8000/api/deliverys/", {
+          type_delivery: "ао",
+          user_id: 1,
+          deliveryman_id: 1, // временно
+          location_id: car.location_id,
+          delivery_location: state6.location,
+          time: state3.end + " " + state4.endTime,
+        });
+      })
+      .then((res) => {
+        console.log(res);
+        const delivery_id2 = res.data.id;
+        console.log(delivery_id2);
+        console.log(delivery_id.id);
+        alert(
+          "Заявка на аренду успешно подана. Ожидайте изменения статуса в личном кабинете. Вам придёт оповещение"
+        );
       })
       .catch((error) => {
         setError();
