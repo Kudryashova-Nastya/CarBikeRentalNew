@@ -34,7 +34,8 @@ function Car({ match }) {
         );
       })
       .then((response) => {
-        setModel(response.data);
+        setModel(response.data, 
+          () => console.log(this.delivery.id),);
       });
   }, [id]);
 
@@ -68,9 +69,8 @@ function Car({ match }) {
     comment: "",
   });
 
-  const [delivery_id, setDelivery] = useState({
-    id: 0,
-  });
+  let delivery1_id = 0;
+  let delivery2_id = 0;
 
   const onChangeStart = (e) => {
     setState({
@@ -116,51 +116,53 @@ function Car({ match }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const data = {
-    //   user_id: 1,  // временно
-    //   car_id: id,
-    //   status: 'за',
-    //   start: this.state.start,
-    //   end: this.state.end,
-    //   region: this.state.region,
-    //   delivery_to_id:
-    //   delivery_from_id:
-    //   limit: car.max_limit,
-    //   price: 1000
-    //   comment: this.state.comment,
-    // };
 
-    axios
+    const firstRequest = axios
       .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ат",
-        user_id: 1, 
-        deliveryman_id: 1,// временно
+        user_id: 1,
+        deliveryman_id: 1, // временно
         location_id: car.location_id,
         delivery_location: state6.location,
         time: state.start + " " + state2.startTime,
       })
       .then((res) => {
+        console.log(res.data);
+        delivery1_id = res.data.id;
+      });
+
+    const secondRequest = axios
+      .post("http://127.0.0.1:8000/api/deliverys/", {
+        type_delivery: "ао",
+        user_id: 1,
+        deliveryman_id: 1, // временно
+        location_id: car.location_id,
+        delivery_location: state6.location,
+        time: state3.end + " " + state4.endTime,
+      })
+      .then((res) => {
         console.log(res);
-        console.log(res.data.id);
-        console.log(delivery_id.id);
-        setDelivery({
-          id: res.data.id,
-        });
-        console.log(delivery_id.id);
-        return axios.post("http://127.0.0.1:8000/api/deliverys/", {
-          type_delivery: "ао",
+        delivery2_id = res.data.id;
+      });
+
+
+    Promise.all([firstRequest, secondRequest])
+      .then(() => {
+        return axios.post("http://127.0.0.1:8000/api/car_rents/", {
           user_id: 1,
-          deliveryman_id: 1, // временно
-          location_id: car.location_id,
-          delivery_location: state6.location,
-          time: state3.end + " " + state4.endTime,
+          car_id: car.id,
+          start: state.start + " " + state2.startTime,
+          end: state3.end + " " + state4.endTime,
+          region: state5.region,
+          delivery_to_id: delivery1_id,
+          delivery_from_id: delivery2_id,
+          limit: car.max_limit,
+          price: car.price,
+          comment: state7.comment,
         });
       })
       .then((res) => {
         console.log(res);
-        const delivery_id2 = res.data.id;
-        console.log(delivery_id2);
-        console.log(delivery_id.id);
         alert(
           "Заявка на аренду успешно подана. Ожидайте изменения статуса в личном кабинете. Вам придёт оповещение"
         );
@@ -169,7 +171,7 @@ function Car({ match }) {
         setError();
         console.log(error);
         if (error.response) {
-          console.log("--------------------------------------------------");
+          console.log("---------------------------------------------");
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);

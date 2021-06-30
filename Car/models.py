@@ -59,13 +59,13 @@ class Car_rent(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     car_id = models.ForeignKey(Car, on_delete=models.CASCADE)
     status = models.CharField(max_length=20, choices=STATUS_RENT_CHOICES, default="на")
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    start = models.CharField(max_length=16)
+    end = models.CharField(max_length=16)
     region =  models.CharField(max_length=40)
     delivery_to_id = models.ForeignKey(Delivery, on_delete=models.CASCADE, blank=True, null=True)
     delivery_from_id = models.ForeignKey(Delivery, on_delete=models.CASCADE, blank=True, null=True, related_name='deliveryfromcar')
     limit = models.PositiveIntegerField()
     price = models.PositiveIntegerField()
-    comment = models.CharField(max_length=200, blank=True)
+    comment = models.CharField(max_length=200, blank=True, null=True)
     def __str__(self):
         return str(self.car_id) or ''
