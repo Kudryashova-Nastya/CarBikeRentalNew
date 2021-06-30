@@ -5,6 +5,7 @@ import {Route, NavLink, Switch} from "react-router-dom";
 import Home from './components/Home/Home.js'
 import FullCars from './components/FullCars/FullCars.js'
 import Car from './components/Car/Car.js'
+import About from './components/About/About.js'
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
       
       <Switch>
         <Route exact path="/" component={Home} />
-        {/* <Route path="/about" component={About} /> */}
+        <Route path="/about" component={About} />
         <Route exact path="/cars" component={FullCars} />
         <Route path="/cars/:id" component={Car} />
         {/* <Route exact path="/bikes" component={FullBikes} />

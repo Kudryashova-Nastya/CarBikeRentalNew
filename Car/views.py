@@ -5,3 +5,6 @@ def car_detail(request, id):
 
 def cars_detail(request):
     return render(request, 'index.html', {})
+
+def about_detail(request):
+    return render(request, 'index.html', {})

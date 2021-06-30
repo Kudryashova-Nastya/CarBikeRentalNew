@@ -34,15 +34,14 @@ function Car({ match }) {
         );
       })
       .then((response) => {
-        setModel(response.data, 
-          () => console.log(this.delivery.id),);
+        setModel(response.data, () => console.log(this.delivery.id));
       });
   }, [id]);
 
   // POST-запрос на аренду
 
   const [state, setState] = useState({
-    start: "",
+    start: new Date().toISOString().slice(0, 10),
   });
 
   const [state2, setState2] = useState({
@@ -50,7 +49,7 @@ function Car({ match }) {
   });
 
   const [state3, setState3] = useState({
-    end: "",
+    end: new Date().toISOString().slice(0, 10),
   });
 
   const [state4, setState4] = useState({
@@ -69,19 +68,37 @@ function Car({ match }) {
     comment: "",
   });
 
+  const [totalPrice, setTotalPrice] = useState({
+    totalPrice: "0",
+  });
+
   let delivery1_id = 0;
   let delivery2_id = 0;
+
+  let date1 = new Date(state.start);
+  let date2 = new Date(state3.end);
+  let daysLag = 0;
 
   const onChangeStart = (e) => {
     setState({
       start: e.target.value,
     });
+
+    date1 = new Date(e.target.value);
+    daysLag = Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24)) + 1;
+    
+    setTotalPrice({totalPrice: car.price * daysLag})
   };
 
   const onChangeEnd = (e) => {
     setState3({
       end: e.target.value,
     });
+
+    date2 = new Date(e.target.value);
+    daysLag = Math.ceil(Math.abs(date2.getTime() - date1.getTime()) / (1000 * 3600 * 24)) + 1;
+    
+    setTotalPrice({totalPrice: car.price * daysLag})
   };
 
   const onChangeStartTime = (e) => {
@@ -120,8 +137,8 @@ function Car({ match }) {
     const firstRequest = axios
       .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ат",
-        user_id: 1,
-        deliveryman_id: 1, // временно
+        user_id: 1, // временно
+        deliveryman_id: 1, 
         location_id: car.location_id,
         delivery_location: state6.location,
         time: state.start + " " + state2.startTime,
@@ -134,8 +151,8 @@ function Car({ match }) {
     const secondRequest = axios
       .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ао",
-        user_id: 1,
-        deliveryman_id: 1, // временно
+        user_id: 1, // временно
+        deliveryman_id: 1,
         location_id: car.location_id,
         delivery_location: state6.location,
         time: state3.end + " " + state4.endTime,
@@ -144,7 +161,6 @@ function Car({ match }) {
         console.log(res);
         delivery2_id = res.data.id;
       });
-
 
     Promise.all([firstRequest, secondRequest])
       .then(() => {
@@ -157,7 +173,7 @@ function Car({ match }) {
           delivery_to_id: delivery1_id,
           delivery_from_id: delivery2_id,
           limit: car.max_limit,
-          price: car.price,
+          price: totalPrice.totalPrice,
           comment: state7.comment,
         });
       })
@@ -220,6 +236,8 @@ function Car({ match }) {
         <img src={car.photo} alt="car image" />
       </div>
 
+      <div className="title_price">{car.price} руб/день</div>
+
       <div className="params">
         <div className="name">Год выпуска</div>
         <div className="filler"></div>
@@ -240,7 +258,6 @@ function Car({ match }) {
         <div className="filler"></div>
         <div className="val">{car.max_limit} км</div>
       </div>
-
 
       <h1 className="title-2">Общие характеристики</h1>
 
@@ -275,13 +292,11 @@ function Car({ match }) {
         <div className="val">{model.rudder}</div>
       </div>
 
-
-
       <h1 className="title-2">Форма аренды</h1>
       <form onSubmit={handleSubmit}>
-        <label className="label">Период аренды</label><br/>
+        <label className="label">Период аренды</label>
+        <br />
         <div className="field has-addons">
-        
           <p className="control">
             <span className="select">
               <select
@@ -399,7 +414,9 @@ function Car({ match }) {
             ></textarea>
           </div>
         </div>
-
+        <div>
+          Итого: <b>{totalPrice.totalPrice}</b>
+        </div>
         <div className="control">
           <button className="button is-link" type="submit">
             Submit
