@@ -166,6 +166,27 @@ function Car({ match }) {
         alert(
           "Заявка на аренду успешно подана. Ожидайте изменения статуса в личном кабинете. Вам придёт оповещение"
         );
+        setState({
+          start: "",
+        });
+        setState3({
+          end: "",
+        });
+        setState2({
+          startTime: "9:00",
+        });
+        setState4({
+          endTime: "9:00",
+        });
+        setState5({
+          region: "",
+        });
+        setState6({
+          location: "",
+        });
+        setState7({
+          comment: "",
+        });
       })
       .catch((error) => {
         setError();
@@ -220,9 +241,47 @@ function Car({ match }) {
         <div className="val">{car.max_limit} км</div>
       </div>
 
-      <h1 className="title-3">Период аренды</h1>
+
+      <h1 className="title-2">Общие характеристики</h1>
+
+      <div className="params">
+        <div className="name">Коробка передач</div>
+        <div className="filler"></div>
+        <div className="val">{model.gearbox}</div>
+      </div>
+      <div className="params">
+        <div className="name">Кузов</div>
+        <div className="filler"></div>
+        <div className="val">{model.body}</div>
+      </div>
+      <div className="params">
+        <div className="name">Вместимость</div>
+        <div className="filler"></div>
+        <div className="val">{model.seats}</div>
+      </div>
+      <div className="params">
+        <div className="name">Привод</div>
+        <div className="filler"></div>
+        <div className="val">{model.drive}</div>
+      </div>
+      <div className="params">
+        <div className="name">Двигатель</div>
+        <div className="filler"></div>
+        <div className="val">{model.engine}</div>
+      </div>
+      <div className="params">
+        <div className="name">Руль</div>
+        <div className="filler"></div>
+        <div className="val">{model.rudder}</div>
+      </div>
+
+
+
+      <h1 className="title-2">Форма аренды</h1>
       <form onSubmit={handleSubmit}>
+        <label className="label">Период аренды</label><br/>
         <div className="field has-addons">
+        
           <p className="control">
             <span className="select">
               <select
