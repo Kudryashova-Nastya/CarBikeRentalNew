@@ -1,14 +1,13 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 import "bulma/css/bulma.min.css";
 import "./style.scss";
 
-// class Car extends Component
-function Car({ match }) {
+function Car(props) {
   const [car, setCar] = useState({});
-  const id = match.params.id;
+  const id = props.match.params.id;
 
   // useEffect(() => {
   //   axios({
@@ -37,6 +36,7 @@ function Car({ match }) {
         setModel(response.data, () => console.log(this.delivery.id));
       });
   }, [id]);
+
 
   // POST-запрос на аренду
 
@@ -137,7 +137,7 @@ function Car({ match }) {
     const firstRequest = axios
       .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ат",
-        user_id: 1, // временно
+        user_id: props.user.id, 
         deliveryman_id: 1, 
         location_id: car.location_id,
         delivery_location: state6.location,
@@ -151,7 +151,7 @@ function Car({ match }) {
     const secondRequest = axios
       .post("http://127.0.0.1:8000/api/deliverys/", {
         type_delivery: "ао",
-        user_id: 1, // временно
+        user_id: props.user.id,
         deliveryman_id: 1,
         location_id: car.location_id,
         delivery_location: state6.location,
@@ -165,7 +165,7 @@ function Car({ match }) {
     Promise.all([firstRequest, secondRequest])
       .then(() => {
         return axios.post("http://127.0.0.1:8000/api/car_rents/", {
-          user_id: 1,
+          user_id: props.user.id,
           car_id: car.id,
           start: state.start + " " + state2.startTime,
           end: state3.end + " " + state4.endTime,
@@ -224,6 +224,144 @@ function Car({ match }) {
         alert("Ошибка " + error.response.status);
       });
   };
+
+  if (props.user.id == 0) {
+    var rent_form = <div><p>Хотите оформить аренду? Авторизуйтесь!</p><br/><Link to="/login" className="button is-primary">
+    <strong> Войти </strong>
+  </Link></div>;
+  } else {
+    var rent_form = <form onSubmit={handleSubmit}>
+      <h2 className="title-2">Форма аренды</h2>
+    <label className="label">Период аренды</label>
+    <br />
+    <div className="field has-addons">
+      <p className="control">
+        <span className="select">
+          <select
+            className="selected"
+            value={state2.startTime}
+            onChange={onChangeStartTime}
+          >
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+            <option value="21:00">21:00</option>
+            <option value="22:00">22:00</option>
+            <option value="23:00">23:00</option>
+          </select>
+        </span>
+      </p>
+      <p className="control">
+        <input
+          className="input"
+          type="date"
+          min={new Date().toISOString().slice(0, 10)}
+          value={state.start}
+          onChange={onChangeStart}
+          required
+        />
+      </p>
+    </div>
+
+    <div className="field has-addons">
+      <p className="control">
+        <span className="select">
+          <select
+            className="selected"
+            value={state4.endTime}
+            onChange={onChangeEndTime}
+          >
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+            <option value="21:00">21:00</option>
+            <option value="22:00">22:00</option>
+            <option value="23:00">23:00</option>
+          </select>
+        </span>
+      </p>
+      <p className="control">
+        <input
+          className="input"
+          type="date"
+          min={new Date().toISOString().slice(0, 10)}
+          value={state3.end}
+          onChange={onChangeEnd}
+          required
+        />
+      </p>
+    </div>
+
+    <div className="field">
+      <label className="label">Регион поездки</label>
+      <div className="control">
+        <input
+          className="input"
+          type="text"
+          placeholder="Место, куда вы планируете поехать"
+          maxlength="40"
+          value={state5.region}
+          onChange={onChangeRegion}
+          required
+        />
+      </div>
+    </div>
+
+    <div className="field">
+      <label className="label">Адрес выдачи и возврата машины</label>
+      <div className="control">
+        <input
+          className="input"
+          type="text"
+          placeholder="Место, где вы заберёте и куда вернёте автомобиль"
+          maxlength="100"
+          value={state6.location}
+          onChange={onChangeLocation}
+          required
+        />
+      </div>
+    </div>
+
+    <div className="field">
+      <label className="label">Комментарий (по желанию)</label>
+      <div className="control">
+        <textarea
+          className="textarea"
+          placeholder="Ваш комментарий"
+          maxlength="200"
+          value={state7.comment}
+          onChange={onChangeComment}
+        ></textarea>
+      </div>
+    </div>
+    <div>
+      Итого: <b>{totalPrice.totalPrice}</b>
+    </div>
+    <div className="control">
+      <button className="button is-link" type="submit">
+        Арендовать
+      </button>
+    </div>
+  </form>;
+  }
 
   return (
     <div>
@@ -292,137 +430,7 @@ function Car({ match }) {
         <div className="val">{model.rudder}</div>
       </div>
 
-      <h1 className="title-2">Форма аренды</h1>
-      <form onSubmit={handleSubmit}>
-        <label className="label">Период аренды</label>
-        <br />
-        <div className="field has-addons">
-          <p className="control">
-            <span className="select">
-              <select
-                className="selected"
-                value={state2.startTime}
-                onChange={onChangeStartTime}
-              >
-                <option value="09:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
-                <option value="21:00">21:00</option>
-                <option value="22:00">22:00</option>
-                <option value="23:00">23:00</option>
-              </select>
-            </span>
-          </p>
-          <p className="control">
-            <input
-              className="input"
-              type="date"
-              min={new Date().toISOString().slice(0, 10)}
-              value={state.start}
-              onChange={onChangeStart}
-              required
-            />
-          </p>
-        </div>
-
-        <div className="field has-addons">
-          <p className="control">
-            <span className="select">
-              <select
-                className="selected"
-                value={state4.endTime}
-                onChange={onChangeEndTime}
-              >
-                <option value="09:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-                <option value="18:00">18:00</option>
-                <option value="19:00">19:00</option>
-                <option value="20:00">20:00</option>
-                <option value="21:00">21:00</option>
-                <option value="22:00">22:00</option>
-                <option value="23:00">23:00</option>
-              </select>
-            </span>
-          </p>
-          <p className="control">
-            <input
-              className="input"
-              type="date"
-              min={new Date().toISOString().slice(0, 10)}
-              value={state3.end}
-              onChange={onChangeEnd}
-              required
-            />
-          </p>
-        </div>
-
-        <div className="field">
-          <label className="label">Регион поездки</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              placeholder="Место, куда вы планируете поехать"
-              maxlength="40"
-              value={state5.region}
-              onChange={onChangeRegion}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Адрес выдачи и возврата машины</label>
-          <div className="control">
-            <input
-              className="input"
-              type="text"
-              placeholder="Место, где вы заберёте и куда вернёте автомобиль"
-              maxlength="100"
-              value={state6.location}
-              onChange={onChangeLocation}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="field">
-          <label className="label">Комментарий (по желанию)</label>
-          <div className="control">
-            <textarea
-              className="textarea"
-              placeholder="Ваш комментарий"
-              maxlength="200"
-              value={state7.comment}
-              onChange={onChangeComment}
-            ></textarea>
-          </div>
-        </div>
-        <div>
-          Итого: <b>{totalPrice.totalPrice}</b>
-        </div>
-        <div className="control">
-          <button className="button is-link" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
+      {rent_form}
     </div>
   );
 }

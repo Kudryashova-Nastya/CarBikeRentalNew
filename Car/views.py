@@ -8,3 +8,5 @@ def cars_detail(request):
 
 def about_detail(request):
     return render(request, 'index.html', {})
+
+
