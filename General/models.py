@@ -9,7 +9,7 @@ TYPE_DELIVERY_CHOICES = [
 
 class Location(models.Model):
     city = models.CharField(max_length=100)
-    metro = models.CharField(max_length=30, blank=True)
+    metro = models.CharField(max_length=30, blank=True, null=True)
     street = models.CharField(max_length=100)
     building = models.CharField(max_length=10)
     def __str__(self):
@@ -19,18 +19,21 @@ class Location(models.Model):
 class User(models.Model):
     name = models.CharField(max_length=100)
     date_birth = models.DateField()
-    gender = models.CharField(max_length=1, blank=True)
+    gender = models.CharField(max_length=1, blank=True, null=True)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    photo = models.CharField(max_length=100, blank=True)
+    photo = models.CharField(max_length=100, blank=True, null=True)
+    password = models.CharField(max_length=30)
     def __str__(self):
         return self.name
 
 class Deliveryman(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=100)
     profile = models.CharField(max_length=10)
     photo = models.CharField(max_length=100)
+    password = models.CharField(max_length=30)
     def __str__(self):
         return self.name
 
@@ -41,6 +44,6 @@ class Delivery(models.Model):
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE)
     delivery_location = models.CharField(max_length=100)
     time = models.CharField(max_length=16)
-    price = models.PositiveSmallIntegerField(blank=True, default=500)
+    price = models.PositiveSmallIntegerField(blank=True, null=True, default=500)
     def __str__(self):
         return str(self.id)

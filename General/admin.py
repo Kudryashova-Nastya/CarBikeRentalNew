@@ -21,7 +21,7 @@ class UserAdmin(ImportExportActionModelAdmin):
 
 
 class DeliverymanAdmin(ImportExportActionModelAdmin):
-    list_display = ('id', 'name', 'phone', 'profile')
+    list_display = ('id', 'name', 'phone', 'email', 'profile')
     list_filter = ('profile',)
     search_fields = ('id', 'name', 'phone')
 
