@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from Car.views import car_detail, cars_detail, about_detail
-from General.views import login_detail, profile_detail, index
+from General.views import login_detail, profile_detail, profile_auth, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('cars/<int:id>/', car_detail),
     path('login/', login_detail),
     path('profile/', profile_detail),
+    path('auth/', profile_auth)
 ]
