@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import logo from "./logo.svg";
 import "bulma/css/bulma.min.css";
 import "./App.css";
-import { Route, NavLink, Switch } from "react-router-dom";
+import { Route, NavLink, Switch, BrowserRouter as Router} from "react-router-dom";
+// import { browserHistory } from 'react-router'
 import Home from "./components/Home/Home.js";
 import FullCars from "./components/FullCars/FullCars.js";
 import Car from "./components/Car/Car.js";
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <div className="App">
+    <Router>
       <header>
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
@@ -79,17 +81,18 @@ function App() {
           </div>
         </nav>
       </header>
-
+      
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route exact path="/cars" component={FullCars} />
         <Route path="/cars/:id" render={({match}) => <Car user={token} match={match}/>} />
         <Route exact path="/profile" render={() => <Profile user={token} />}/>
-        <Route exact path="/login" render={() => <Login userLogin={userLogin} />}/>
+        <Route exact path="/login" render={() => <Login userLogin={userLogin}/>}/>
         {/* <Route exact path="/bikes" component={FullBikes} />
         <Route path="/bikes/:id" component={Bike} /> */}
       </Switch>
+      </Router>
     </div>
   );
 }

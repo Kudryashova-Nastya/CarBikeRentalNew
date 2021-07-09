@@ -9,15 +9,6 @@ function Car(props) {
   const [car, setCar] = useState({});
   const id = props.match.params.id;
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "GET",
-  //     url: `http://127.0.0.1:8000/api/cars/${id}/`,
-  //   }).then((response) => {
-  //     setCar(response.data);
-  //   });
-  // }, [id]);
-
   const [model, setModel] = useState({});
   const [error, setError] = useState({});
 
