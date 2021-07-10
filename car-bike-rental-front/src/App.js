@@ -97,7 +97,7 @@ function App() {
         <Route path="/about" component={About} />
         <Route exact path="/cars" component={FullCars} />
         <Route path="/cars/:id" render={({match}) => <Car user={user} match={match}/>} />
-        <Route exact path="/profile" render={() => <Profile user={user} deliveryman={deliveryman} />}/>
+        <Route exact path="/profile" render={() => <Profile user={user} userLogin={userLogin} deliveryman={deliveryman} deliverymanLogin={deliverymanLogin}/>}/>
         <Route exact path="/login" render={() => <Login userLogin={userLogin} user={user} deliverymanLogin={deliverymanLogin} deliveryman={deliveryman}/>}/>
         <Route exact path="/userEdit" render={() => <UserEdit userLogin={userLogin} user={user}/>}/>
         {/* <Route exact path="/bikes" component={FullBikes} />

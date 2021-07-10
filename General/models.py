@@ -22,8 +22,8 @@ class User(models.Model):
     gender = models.CharField(max_length=1, blank=True, null=True)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
-    photo = models.CharField(max_length=100, blank=True, null=True)
-    password = models.CharField(max_length=30)
+    photo = models.CharField(max_length=355, blank=True, null=True)
+    password = models.CharField(max_length=50)
     def __str__(self):
         return self.name
 
@@ -32,8 +32,8 @@ class Deliveryman(models.Model):
     phone = models.CharField(max_length=20)
     email = models.CharField(max_length=100)
     profile = models.CharField(max_length=10)
-    photo = models.CharField(max_length=100)
-    password = models.CharField(max_length=30)
+    photo = models.CharField(max_length=355)
+    password = models.CharField(max_length=50)
     def __str__(self):
         return self.name
 

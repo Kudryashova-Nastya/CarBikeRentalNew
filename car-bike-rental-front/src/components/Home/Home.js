@@ -8,12 +8,12 @@ const Home = () => (
     <h1 className="title">Я хочу арендовать</h1>
     <div className="columns">
       <div className=" column">
-        <NavLink to="/cars" className="link-block navbar-item">
+        <NavLink to="/cars" className="button is-link is-light link-block">
           Автомобиль
         </NavLink>
       </div>
       <div className="column">
-        <NavLink to="/bikes" className="link-block navbar-item">
+        <NavLink to="/bikes" className="button is-link is-light link-block">
           Велосипед
         </NavLink>
       </div>
