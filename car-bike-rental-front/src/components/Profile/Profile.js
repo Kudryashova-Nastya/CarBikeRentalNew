@@ -57,7 +57,7 @@ class Profile extends Component {
           </Link>
           <hr/>
           
-          <Link to="/historyRentCar" className="link-block">
+          <Link to="/historyRentCar" className="button is-medium is-fullwidth is-primary is-light">
             История аренды авто
           </Link>
         </div>

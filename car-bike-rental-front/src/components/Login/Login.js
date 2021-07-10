@@ -91,7 +91,7 @@ class Login extends Component {
         </div>
 
         <div className="field">
-          <Link to="/admin/">Вход для администратора</Link>
+          <Link to="/admin">Вход для администратора</Link>
         </div>
       </div>
     );

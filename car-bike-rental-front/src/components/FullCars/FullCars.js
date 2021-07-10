@@ -41,7 +41,7 @@ function FullCars() {
                 <div className="content">
                     {p.year} года выпуска. <br/>
                     {p.mileage} км пробега. <br/>
-                    <Link to={{pathname: `/cars/${p.id}`, fromDashboard: false}} class="card-footer-item button is-primary is-light"> Арендовать </Link>
+                    <Link to={{pathname: `/cars/${p.id}`, fromDashboard: false}} class="card-footer-item button is-primary is-light card_but"> Арендовать </Link>
                 </div>
               </div> 
             </div>
