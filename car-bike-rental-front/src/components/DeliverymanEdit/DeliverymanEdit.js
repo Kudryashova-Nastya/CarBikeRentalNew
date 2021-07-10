@@ -52,7 +52,10 @@ function DeliverymanEdit(props) {
     };
 
     axios
-      .put(`http://127.0.0.1:8000/api/deliverymans/${deliveryman.id}/`, article)
+      .put(
+        `http://carbikerental.std-953.ist.mospolytech.ru/api/deliverymans/${deliveryman.id}/`,
+        article
+      )
       .then((res) => {
         alert("Данные успешно обновлены");
         console.log(res);
@@ -127,7 +130,6 @@ function DeliverymanEdit(props) {
           </button>
         </div>
       </form>
-      
     </div>
   );
 }

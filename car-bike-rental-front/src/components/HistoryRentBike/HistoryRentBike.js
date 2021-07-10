@@ -13,7 +13,7 @@ function HistoryRentBike(props) {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://127.0.0.1:8000/userRentBike/?id=${user.id}`,
+      url: `http://carbikerental.std-953.ist.mospolytech.ru/userRentBike/?id=${user.id}`,
     }).then((response) => {
       setRents(response.data);
     });

@@ -83,7 +83,10 @@ function UserEdit(props) {
     };
 
     axios
-      .put(`http://127.0.0.1:8000/api/users/${user.id}/`, article)
+      .put(
+        `http://carbikerental.std-953.ist.mospolytech.ru/api/users/${user.id}/`,
+        article
+      )
       .then((res) => {
         alert("Данные успешно обновлены");
         console.log(res);
@@ -123,10 +126,7 @@ function UserEdit(props) {
           <p className="control">
             <label className="label">Пол</label>
           </p>
-          <p
-            className="control"
-            style={{marginLeft: 10}}
-          >
+          <p className="control" style={{ marginLeft: 10 }}>
             <span className="select">
               <select
                 className="selected"

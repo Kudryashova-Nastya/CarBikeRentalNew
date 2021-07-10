@@ -11,7 +11,7 @@ function FullBikes() {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://127.0.0.1:8000/api/bikes/`,
+      url: `http://carbikerental.std-953.ist.mospolytech.ru/api/bikes/`,
     }).then((response) => {
       setBikes(response.data);
     });

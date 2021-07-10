@@ -13,7 +13,7 @@ function HistoryDelivery(props) {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://127.0.0.1:8000/api/deliverys/`,
+      url: `http://carbikerental.std-953.ist.mospolytech.ru/api/deliverys/`,
     }).then((response) => {
       setDeliverys(response.data);
     });

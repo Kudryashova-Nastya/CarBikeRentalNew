@@ -13,7 +13,9 @@ class Login extends Component {
 
   login = (event) => {
     axios
-      .get(`http://127.0.0.1:8000/auth/?email=${this.state.credentials.email}`)
+      .get(
+        `http://carbikerental.std-953.ist.mospolytech.ru/auth/?email=${this.state.credentials.email}`
+      )
       .then((response) => {
         if (response.data === "пользователя с такой почтой не существует") {
           console.log(response.data);
@@ -37,7 +39,7 @@ class Login extends Component {
   loginDel = (event) => {
     axios
       .get(
-        `http://127.0.0.1:8000/authDel/?email=${this.state.credentials.email}`
+        `http://carbikerental.std-953.ist.mospolytech.ru/authDel/?email=${this.state.credentials.email}`
       )
       .then((response) => {
         if (response.data === "Курьера с такой почтой не существует") {

@@ -16,11 +16,11 @@ function Bike(props) {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/bikes/${id}/`)
+      .get(`http://carbikerental.std-953.ist.mospolytech.ru/api/bikes/${id}/`)
       .then((response) => {
         setBike(response.data);
         return axios.get(
-          `http://127.0.0.1:8000/api/bike_models/${response.data.bike_model_id}/`
+          `http://carbikerental.std-953.ist.mospolytech.ru/api/bike_models/${response.data.bike_model_id}/`
         );
       })
       .then((response) => {
@@ -131,7 +131,7 @@ function Bike(props) {
     e.preventDefault();
 
     const firstRequest = axios
-      .post("http://127.0.0.1:8000/api/deliverys/", {
+      .post("http://carbikerental.std-953.ist.mospolytech.ru/api/deliverys/", {
         type_delivery: "вт",
         user_id: props.user.id,
         deliveryman_id: 1,
@@ -145,7 +145,7 @@ function Bike(props) {
       });
 
     const secondRequest = axios
-      .post("http://127.0.0.1:8000/api/deliverys/", {
+      .post("http://carbikerental.std-953.ist.mospolytech.ru/api/deliverys/", {
         type_delivery: "во",
         user_id: props.user.id,
         deliveryman_id: 1,
@@ -160,18 +160,21 @@ function Bike(props) {
 
     Promise.all([firstRequest, secondRequest])
       .then(() => {
-        return axios.post("http://127.0.0.1:8000/api/bike_rents/", {
-          user_id: props.user.id,
-          bike_id: bike.id,
-          start: state.start + " " + state2.startTime,
-          end: state3.end + " " + state4.endTime,
-          region: state5.region,
-          delivery_to_id: delivery1_id,
-          delivery_from_id: delivery2_id,
-          limit: bike.max_limit,
-          price: totalPrice.totalPrice,
-          comment: state7.comment,
-        });
+        return axios.post(
+          "http://carbikerental.std-953.ist.mospolytech.ru/api/bike_rents/",
+          {
+            user_id: props.user.id,
+            bike_id: bike.id,
+            start: state.start + " " + state2.startTime,
+            end: state3.end + " " + state4.endTime,
+            region: state5.region,
+            delivery_to_id: delivery1_id,
+            delivery_from_id: delivery2_id,
+            limit: bike.max_limit,
+            price: totalPrice.totalPrice,
+            comment: state7.comment,
+          }
+        );
       })
       .then((res) => {
         console.log(res);

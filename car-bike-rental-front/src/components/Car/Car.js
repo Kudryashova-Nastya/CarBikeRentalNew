@@ -16,11 +16,11 @@ function Car(props) {
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/api/cars/${id}/`)
+      .get(`http://carbikerental.std-953.ist.mospolytech.ru/api/cars/${id}/`)
       .then((response) => {
         setCar(response.data);
         return axios.get(
-          `http://127.0.0.1:8000/api/car_models/${response.data.car_model_id}/`
+          `http://carbikerental.std-953.ist.mospolytech.ru/api/car_models/${response.data.car_model_id}/`
         );
       })
       .then((response) => {
@@ -126,7 +126,7 @@ function Car(props) {
     e.preventDefault();
 
     const firstRequest = axios
-      .post("http://127.0.0.1:8000/api/deliverys/", {
+      .post("http://carbikerental.std-953.ist.mospolytech.ru/api/deliverys/", {
         type_delivery: "ат",
         user_id: props.user.id, 
         deliveryman_id: 1, 
@@ -140,7 +140,7 @@ function Car(props) {
       });
 
     const secondRequest = axios
-      .post("http://127.0.0.1:8000/api/deliverys/", {
+      .post("http://carbikerental.std-953.ist.mospolytech.ru/api/deliverys/", {
         type_delivery: "ао",
         user_id: props.user.id,
         deliveryman_id: 1,
@@ -155,7 +155,7 @@ function Car(props) {
 
     Promise.all([firstRequest, secondRequest])
       .then(() => {
-        return axios.post("http://127.0.0.1:8000/api/car_rents/", {
+        return axios.post("http://carbikerental.std-953.ist.mospolytech.ru/api/car_rents/", {
           user_id: props.user.id,
           car_id: car.id,
           start: state.start + " " + state2.startTime,

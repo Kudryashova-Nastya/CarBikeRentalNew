@@ -13,7 +13,7 @@ function HistoryRentCar(props) {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `http://127.0.0.1:8000/userRent/?id=${user.id}`,
+      url: `http://carbikerental.std-953.ist.mospolytech.ru/userRent/?id=${user.id}`,
     }).then((response) => {
       setRents(response.data);
     });
@@ -27,9 +27,8 @@ function HistoryRentCar(props) {
       <h1 className="title">История аренды автомобилей</h1>
       <p>Всего: {rents.length}</p>
       <p>
-        
         <ul className="statuses">
-            Статусы:
+          Статусы:
           <li>на - На рассмотрении</li>
           <li>за - Заказ одобрен и оформлен</li>
           <li>оп - Оплачено</li>
