@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // import { Link, withRouter, useHistory} from "react-router-dom";
 
 import "bulma/css/bulma.min.css";
@@ -11,25 +11,50 @@ class Login extends Component {
     credentials: { email: "", password: "" },
   };
 
-  login = event => { axios
-    .get(`http://127.0.0.1:8000/auth/?email=${this.state.credentials.email}`)
-    .then((response) => {
-      if (response.data === "пользователя с такой почтой не существует") {
-        console.log(response.data);
-        alert("Пользователя с указанной электронной почтой не существует");
-      } else {
-        if (response.data[0].password === this.state.credentials.password) {
-          this.props.userLogin(response.data[0]);
-          console.log("пользователь авторизован");
-          return <Redirect push to="/profile" />
-          // const history = useHistory();
-          // this.props.history.goBack();
-          // browserHistory.goBack()
+  login = (event) => {
+    axios
+      .get(`http://127.0.0.1:8000/auth/?email=${this.state.credentials.email}`)
+      .then((response) => {
+        if (response.data === "пользователя с такой почтой не существует") {
+          console.log(response.data);
+          alert("Пользователя с указанной электронной почтой не существует");
         } else {
-          alert("Пароль неверен")
+          if (response.data[0].password === this.state.credentials.password) {
+            this.props.userLogin(response.data[0]);
+            console.log("пользователь авторизован");
+            return <Redirect push to="/profile" />;
+            // const history = useHistory();
+            // this.props.history.goBack();
+            // browserHistory.goBack()
+          } else {
+            alert("Пароль неверен");
+          }
         }
-      }}).catch( error => console.error(error))
-  }
+      })
+      .catch((error) => console.error(error));
+  };
+
+  loginDel = (event) => {
+    axios
+      .get(
+        `http://127.0.0.1:8000/authDel/?email=${this.state.credentials.email}`
+      )
+      .then((response) => {
+        if (response.data === "Курьера с такой почтой не существует") {
+          console.log(response.data);
+          alert("Курьера с указанной электронной почтой не существует");
+        } else {
+          if (response.data[0].password === this.state.credentials.password) {
+            this.props.deliverymanLogin(response.data[0]);
+            console.log("Курьер авторизован");
+            return <Redirect push to="/profile" />;
+          } else {
+            alert("Пароль неверен");
+          }
+        }
+      })
+      .catch((error) => console.error(error));
+  };
 
   inputChanged = (event) => {
     const cred = this.state.credentials;
@@ -37,11 +62,11 @@ class Login extends Component {
     this.setState({ credentials: cred });
   };
 
-
   render() {
-    if (this.props.user.id !== 0) {
-        return <Redirect push to="/profile" />
-      }
+    if (this.props.user.id !== 0 || this.props.deliveryman.id !== 0) {
+      return <Redirect push to="/profile" />;
+    }
+
     return (
       <div>
         <h1 className="title">Авторизация</h1>
@@ -84,7 +109,7 @@ class Login extends Component {
             </button>
           </div>
           <div className="control">
-            <button className="button is-link is-light">
+            <button className="button is-link is-light" onClick={this.loginDel}>
               Войти как курьер
             </button>
           </div>

@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
-from General.models import User
+from General.models import User, Deliveryman
 from Car.models import Car_rent
 from Bike.models import Bike_rent
 
@@ -31,6 +31,17 @@ def profile_auth(request):
         return HttpResponse('пользователя с такой почтой не существует')
     if (list(user) == []):
         return HttpResponse('пользователя с такой почтой не существует')
+    return JsonResponse(list(user), safe=False)
+
+def deliveryman_auth(request):
+    mail = request.GET.get('email')
+    try:
+        user = Deliveryman.objects.filter(email=mail).values()
+
+    except User.DoesNotExist:
+        return HttpResponse('Курьера с такой почтой не существует')
+    if (list(user) == []):
+        return HttpResponse('Курьера с такой почтой не существует')
     return JsonResponse(list(user), safe=False)
 
 def user_rent(request):

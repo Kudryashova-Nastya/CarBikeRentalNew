@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def bike_detail(request, id):
+    return render(request, 'index.html', {})
+
+def bikes_detail(request):
+    return render(request, 'index.html', {})

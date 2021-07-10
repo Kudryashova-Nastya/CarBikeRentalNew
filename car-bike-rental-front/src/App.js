@@ -6,6 +6,8 @@ import { Route, NavLink, Switch, BrowserRouter as Router} from "react-router-dom
 import Home from "./components/Home/Home.js";
 import FullCars from "./components/FullCars/FullCars.js";
 import Car from "./components/Car/Car.js";
+import FullBikes from "./components/FullBikes/FullBikes.js";
+import Bike from "./components/Bike/Bike.js";
 import About from "./components/About/About.js";
 import Login from "./components/Login/Login.js";
 import Profile from "./components/Profile/Profile.js";
@@ -99,13 +101,14 @@ function App() {
         <Route path="/about" component={About} />
         <Route exact path="/cars" component={FullCars} />
         <Route path="/cars/:id" render={({match}) => <Car user={user} match={match}/>} />
+        <Route exact path="/bikes" component={FullBikes} />
+        <Route path="/bikes/:id" render={({match}) => <Bike user={user} match={match}/>} />
         <Route exact path="/profile" render={() => <Profile user={user} userLogin={userLogin} deliveryman={deliveryman} deliverymanLogin={deliverymanLogin}/>}/>
         <Route exact path="/login" render={() => <Login userLogin={userLogin} user={user} deliverymanLogin={deliverymanLogin} deliveryman={deliveryman}/>}/>
         <Route exact path="/userEdit" render={() => <UserEdit userLogin={userLogin} user={user}/>}/>
         <Route exact path="/historyRentCar" render={() => <HistoryRentCar userLogin={userLogin} user={user}/>}/>
         <Route exact path="/historyRentBike" render={() => <HistoryRentBike userLogin={userLogin} user={user}/>}/>
-        {/* <Route exact path="/bikes" component={FullBikes} />
-        <Route path="/bikes/:id" component={Bike} /> */}
+     
       </Switch>
       {/* </Router> */}
     </div>
