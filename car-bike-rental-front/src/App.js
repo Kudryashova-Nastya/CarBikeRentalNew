@@ -10,6 +10,8 @@ import About from "./components/About/About.js";
 import Login from "./components/Login/Login.js";
 import Profile from "./components/Profile/Profile.js";
 import UserEdit from "./components/UserEdit/UserEdit.js";
+import HistoryRentCar from "./components/HistoryRentCar/HistoryRentCar.js";
+import HistoryRentBike from "./components/HistoryRentBike/HistoryRentBike.js";
 
 function App() {
   // арендатор
@@ -100,6 +102,8 @@ function App() {
         <Route exact path="/profile" render={() => <Profile user={user} userLogin={userLogin} deliveryman={deliveryman} deliverymanLogin={deliverymanLogin}/>}/>
         <Route exact path="/login" render={() => <Login userLogin={userLogin} user={user} deliverymanLogin={deliverymanLogin} deliveryman={deliveryman}/>}/>
         <Route exact path="/userEdit" render={() => <UserEdit userLogin={userLogin} user={user}/>}/>
+        <Route exact path="/historyRentCar" render={() => <HistoryRentCar userLogin={userLogin} user={user}/>}/>
+        <Route exact path="/historyRentBike" render={() => <HistoryRentBike userLogin={userLogin} user={user}/>}/>
         {/* <Route exact path="/bikes" component={FullBikes} />
         <Route path="/bikes/:id" component={Bike} /> */}
       </Switch>

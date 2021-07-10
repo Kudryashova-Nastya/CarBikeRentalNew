@@ -60,6 +60,9 @@ class Profile extends Component {
           <Link to="/historyRentCar" className="button is-medium is-fullwidth is-primary is-light">
             История аренды авто
           </Link>
+          <Link to="/historyRentBike" className="button is-medium is-fullwidth is-primary is-light">
+            История аренды велосипедов
+          </Link>
         </div>
 
         <button onClick={this.logOut} className="button is-danger">Выход из учётной записи</button>
