@@ -12,7 +12,7 @@ function Bike(props) {
   const [model, setModel] = useState({});
   const [error, setError] = useState({});
 
-  // GET-запрос на вывод информации о самом авто и его модели
+  // GET-запрос на вывод информации о самом велике и его модели
 
   useEffect(() => {
     axios
