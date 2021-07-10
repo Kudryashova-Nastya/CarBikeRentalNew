@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link, withRouter, useHistory} from "react-router-dom";
-// import { Link, useHistory, browserHistory} from "react-router-dom";
-// import { browserHistory } from 'react-router';
-// import { Router as browserHistory } from 'react-router';
-// import { Route, Switch, browserHistory } from "react-router-dom";
-// import { browserHistory } from 'react-router'
+import { Link, Redirect} from "react-router-dom";
+// import { Link, withRouter, useHistory} from "react-router-dom";
 
 import "bulma/css/bulma.min.css";
 import "./style.scss";
@@ -25,8 +21,9 @@ class Login extends Component {
         if (response.data[0].password === this.state.credentials.password) {
           this.props.userLogin(response.data[0]);
           console.log("пользователь авторизован");
+          return <Redirect push to="/profile" />
           // const history = useHistory();
-          this.props.history.goBack();
+          // this.props.history.goBack();
           // browserHistory.goBack()
         } else {
           alert("Пароль неверен")
@@ -42,6 +39,9 @@ class Login extends Component {
 
 
   render() {
+    if (this.props.user.id !== 0) {
+        return <Redirect push to="/profile" />
+      }
     return (
       <div>
         <h1 className="title">Авторизация</h1>
@@ -98,4 +98,5 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login);
+// export default withRouter(Login);
+export default Login;

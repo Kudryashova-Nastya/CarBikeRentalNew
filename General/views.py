@@ -11,6 +11,9 @@ def login_detail(request):
 def profile_detail(request):
     return render(request, 'index.html', {})
 
+def user_edit(request):
+    return render(request, 'index.html', {})
+
 def profile_auth(request):
     mail = request.GET.get('email')
     try:

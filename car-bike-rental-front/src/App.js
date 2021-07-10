@@ -3,24 +3,33 @@ import logo from "./logo.svg";
 import "bulma/css/bulma.min.css";
 import "./App.css";
 import { Route, NavLink, Switch, BrowserRouter as Router} from "react-router-dom";
-// import { browserHistory } from 'react-router'
 import Home from "./components/Home/Home.js";
 import FullCars from "./components/FullCars/FullCars.js";
 import Car from "./components/Car/Car.js";
 import About from "./components/About/About.js";
 import Login from "./components/Login/Login.js";
 import Profile from "./components/Profile/Profile.js";
+import UserEdit from "./components/UserEdit/UserEdit.js";
 
 function App() {
-  const [token, setToken] = useState({ id: 0, name: "" });
+  // арендатор
+  const [user, setUser] = useState({ id: 0, name: "" });
 
   const userLogin = (tok) => {
-    setToken(tok);
+    setUser(tok);
   };
+
+  // курьер
+  const [deliveryman, setDeliveryman] = useState({ id: 0, name: "" });
+
+  const deliverymanLogin = (tok) => {
+    setDeliveryman(tok);
+  };
+
 
   return (
     <div className="App">
-    <Router>
+    {/* <Router> */}
       <header>
         <nav className="navbar" role="navigation" aria-label="main navigation">
           <div className="navbar-brand">
@@ -69,7 +78,8 @@ function App() {
             </div>
 
             <div className="navbar-end">
-              <div className="navbar-item">{token.name}</div>
+              <div className="navbar-item">{user.name}</div>
+              <div className="navbar-item">{deliveryman.name}</div>
               <div className="navbar-item">
                 <div className="buttons">
                   <NavLink to="/profile" className="button is-primary">
@@ -86,13 +96,14 @@ function App() {
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route exact path="/cars" component={FullCars} />
-        <Route path="/cars/:id" render={({match}) => <Car user={token} match={match}/>} />
-        <Route exact path="/profile" render={() => <Profile user={token} />}/>
-        <Route exact path="/login" render={() => <Login userLogin={userLogin}/>}/>
+        <Route path="/cars/:id" render={({match}) => <Car user={user} match={match}/>} />
+        <Route exact path="/profile" render={() => <Profile user={user} deliveryman={deliveryman} />}/>
+        <Route exact path="/login" render={() => <Login userLogin={userLogin} user={user} deliverymanLogin={deliverymanLogin} deliveryman={deliveryman}/>}/>
+        <Route exact path="/userEdit" render={() => <UserEdit userLogin={userLogin} user={user}/>}/>
         {/* <Route exact path="/bikes" component={FullBikes} />
         <Route path="/bikes/:id" component={Bike} /> */}
       </Switch>
-      </Router>
+      {/* </Router> */}
     </div>
   );
 }

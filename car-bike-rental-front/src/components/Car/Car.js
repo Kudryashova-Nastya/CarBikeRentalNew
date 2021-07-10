@@ -216,6 +216,7 @@ function Car(props) {
       });
   };
 
+  // смотрим авторизован ли пользователь и можно ли показывать ему форму
   if (props.user.id == 0) {
     var rent_form = <div><p>Хотите оформить аренду? Авторизуйтесь!</p><br/><Link to="/login" className="button is-primary">
     <strong> Войти </strong>
@@ -329,7 +330,7 @@ function Car(props) {
           required
         />
       </div>
-    </div>
+    </div> 
 
     <div className="field">
       <label className="label">Комментарий (по желанию)</label>
