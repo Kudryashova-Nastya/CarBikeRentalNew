@@ -15,6 +15,7 @@ import UserEdit from "./components/UserEdit/UserEdit.js";
 import DeliverymanEdit from "./components/DeliverymanEdit/DeliverymanEdit.js";
 import HistoryRentCar from "./components/HistoryRentCar/HistoryRentCar.js";
 import HistoryRentBike from "./components/HistoryRentBike/HistoryRentBike.js";
+import HistoryDelivery from "./components/HistoryDelivery/HistoryDelivery.js";
 
 function App() {
   // арендатор
@@ -110,6 +111,7 @@ function App() {
         <Route exact path="/deliverymanEdit" render={() => <DeliverymanEdit deliverymanLogin={deliverymanLogin} deliveryman={deliveryman}/>}/>
         <Route exact path="/historyRentCar" render={() => <HistoryRentCar userLogin={userLogin} user={user}/>}/>
         <Route exact path="/historyRentBike" render={() => <HistoryRentBike userLogin={userLogin} user={user}/>}/>
+        <Route exact path="/historyDelivery" render={() => <HistoryDelivery deliverymanLogin={deliverymanLogin} deliveryman={deliveryman}/>}/>
      
       </Switch>
       {/* </Router> */}

@@ -22,6 +22,9 @@ def rent_car(request):
 def rent_bike(request):
     return render(request, 'index.html', {})
 
+def history_delivery(request):
+    return render(request, 'index.html', {})
+
 def profile_auth(request):
     mail = request.GET.get('email')
     try:

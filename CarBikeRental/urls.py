@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from Car.views import car_detail, cars_detail, about_detail
 from Bike.views import bike_detail, bikes_detail
-from General.views import login_detail, profile_detail, profile_auth, deliveryman_auth, user_edit, rent_car, rent_bike, user_rent, user_rent_bike, index
+from General.views import login_detail, history_delivery, profile_detail, profile_auth, deliveryman_auth, user_edit, rent_car, rent_bike, user_rent, user_rent_bike, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +35,7 @@ urlpatterns = [
     path('userEdit/', user_edit),
     path('historyRentCar/', rent_car),
     path('historyRentBike/', rent_bike),
+    path('historyDelivery/', history_delivery),
     path('userRent/', user_rent),
     path('userRentBike/', user_rent_bike),
 ]
